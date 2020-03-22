@@ -12,3 +12,8 @@
 /captures
 .externalNativeBuild
 .cxx
+
+# ignore the following file types
+
+*.sublime-project
+*.sublime-workspace
