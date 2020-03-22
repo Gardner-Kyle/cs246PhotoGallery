@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityDisplayCategory">
+
+    <Button
+        android:id="@+id/buttonHome2"
+        android:layout_width="379dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="16dp"
+        android:background="#000000"
+        android:onClick="returnHome"
+        android:text="@string/button_home"
+        android:textColor="#EBEBEB"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageView04"
+        android:layout_width="180dp"
+        android:layout_height="144dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="viewImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView02"
+        app:srcCompat="@drawable/tiger_04" />
+
+    <ImageButton
+        android:id="@+id/imageView03"
+        android:layout_width="180dp"
+        android:layout_height="144dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:onClick="viewImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView01"
+        app:srcCompat="@drawable/tiger_03" />
+
+    <ImageButton
+        android:id="@+id/imageView02"
+        android:layout_width="180dp"
+        android:layout_height="144dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="viewImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textHeadingCategory"
+        app:srcCompat="@drawable/tiger_02" />
+
+    <ImageButton
+        android:id="@+id/imageView01"
+        android:layout_width="180dp"
+        android:layout_height="144dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:onClick="viewImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textHeadingCategory"
+        app:srcCompat="@drawable/tiger_01" />
+
+    <TextView
+        android:id="@+id/textHeadingCategory"
+        android:layout_width="379dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/heading_category"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

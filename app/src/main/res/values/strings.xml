@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Image Viewer</string>
+    <string name="button_continue">Continue</string>
+    <string name="button_download">Download</string>
+    <string name="button_home">Home</string>
+    <string name="edit_name">Name</string>
+    <string name="heading_category">Category</string>
+    <string name="heading_choose">Choose a Category</string>
+    <string name="heading_image">Image</string>
+    <string name="heading_main">Tell Us About Yourself</string>
+    <string name="label_name">What is your name?</string>
+    <string name="text_placeholder">Placeholder text.</string>
+</resources>
