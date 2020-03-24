@@ -1,51 +1,58 @@
 package com.example.photogallery;
 
-import android.os.Build;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-import androidx.annotation.RequiresApi;
-
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 
-public class Model {
+public class Model extends Thread {
 
-    ArrayList<Object> imageArray;
+    static ArrayList<Photo> photoArray;
+    private static String category;
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public ArrayList<Object> getImageArray(String category) {
+    public void getPhotoArray(String category) {
+        Model.category = category;
+        Model model = new Model();
+        model.start();
+    }
 
-        String url = "https://pixabay.com/api/?key=15256236-228f0977aeaa8566bd1c561bb&q=" + category + "&image_type=photo";
+    private static void setPhotoArray(ArrayList<Photo> imageArray) {
+        Model.photoArray = imageArray;
+    }
 
-        try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
+    public void run(){
+        System.out.println("MyThread running");
+        HttpURLConnection request;
+        try {
+            URL url = new URL("https://pixabay.com/api/?key=15256236-228f0977aeaa8566bd1c561bb&q=" + Model.category + "&image_type=photo");
+            request = (HttpURLConnection)url.openConnection();
+            request.setDoOutput(true);
+            request.setRequestMethod("GET");
+            request.connect();
 
-            HttpGet request = new HttpGet(url);
-            HttpResponse response = client.execute(request);
+            JsonParser jp = new JsonParser();
+            JsonElement element = jp.parse(new InputStreamReader((InputStream)request.getContent()));
+            JsonObject object = element.getAsJsonObject();
+            JsonArray array = object.get("hits").getAsJsonArray();
 
-            BufferedReader bufReader = new BufferedReader(new InputStreamReader(
-                    response.getEntity().getContent()));
-
-            StringBuilder builder = new StringBuilder();
-
-            String line;
-
-            while ((line = bufReader.readLine()) != null) {
-
-                builder.append(line);
-                builder.append(System.lineSeparator());
+            ArrayList<Photo> imageArray = new ArrayList<Photo>();
+            for (JsonElement imageElement : array) {
+                JsonObject imageObject = imageElement.getAsJsonObject();
+                String imageUrl = imageObject.get("previewURL").getAsString();
+                String imageCategory = Model.category;
+                Photo photo = new Photo(imageUrl, imageCategory);
+                imageArray.add(photo);
             }
-            System.out.println(builder);
-
-            // parse the info into the image array
-
-        } catch (IOException e) {
+            setPhotoArray(imageArray);
+        } catch(IOException e) {
             e.printStackTrace();
         }
-        return imageArray;
     }
 }
