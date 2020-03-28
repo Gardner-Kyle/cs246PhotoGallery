@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
-import java.util.ArrayList;
-
 import static android.app.PendingIntent.getActivity;
 
 
@@ -16,7 +14,7 @@ class Presenter {
     /*Save the username to internal storage
     * Get Image Category and send it to Choose category activity
     */
-    public static class mainTask extends AsyncTask<String,Integer, Model>{
+    public static class mainTask extends AsyncTask<String,Void, Model>{
         private Context context;
 
         //Context will be specified at instantiation : Can only be done in UI thread.
@@ -36,13 +34,9 @@ class Presenter {
         }
 
         @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-        }
-
-        @Override
         protected void onPostExecute(Model model) {
-            super.onPostExecute(model);
+
+            ;
         }
     }
 
