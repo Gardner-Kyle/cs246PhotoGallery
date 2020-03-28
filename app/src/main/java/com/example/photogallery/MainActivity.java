@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
         //Instantiate Presenter and carry out name saving in background.
         Presenter container = new Presenter();
         //Only argument is context, which must only be specified in UI thread
-        Presenter.ActivateCategoryActivity saver = container.new ActivateCategoryActivity(this);
-        saver.doInBackground(name);
+        Presenter.mainTask saver = container.new mainTask(this);
+        saver.doInBackground(editText.getText().toString());
 
         intent.putExtra(NAME, name);
         startActivity(intent);

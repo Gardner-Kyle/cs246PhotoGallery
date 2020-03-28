@@ -16,11 +16,11 @@ class Presenter {
     /*Save the username to internal storage
     * Get Image Category and send it to Choose category activity
     */
-    public class ActivateCategoryActivity extends AsyncTask<String,Integer, Model>{
+    public static class mainTask extends AsyncTask<String,Integer, Model>{
         private Context context;
 
         //Context will be specified at instantiation : Can only be done in UI thread.
-        ActivateCategoryActivity(Context context) { this.context = context; }
+        mainTask(Context context) { this.context = context; }
 
         @Override
         protected Model doInBackground(String... params) {
@@ -30,11 +30,9 @@ class Presenter {
 
             SharedPreferences.Editor edit = s.edit();
             edit.putString(KEY,params[0]);
-            edit.commit();
+            edit.apply();
 
-            Model images = new Model();
-
-            return images;
+            return new Model();
         }
 
         @Override
@@ -45,12 +43,9 @@ class Presenter {
         @Override
         protected void onPostExecute(Model model) {
             super.onPostExecute(model);
-            model.getPhotoArray("Tigers");
-            model.getPhotoArray("Lions");
-            model.getPhotoArray("Cats");
-            model.getPhotoArray("Dogs");
         }
     }
+
 }
 
 
