@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,10 +31,9 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.editName);
         String name       = editText.getText().toString();
 
-        //Instantiate Presenter and carry out name saving in background.
-        //Only argument is context, which must only be specified in UI thread
-        Presenter.GetImagesFromModel saver = new Presenter.GetImagesFromModel(this);
-        saver.execute(editText.getText().toString());
+        //Instantiate Presenter and carry out name saving.
+        Presenter saver = new Presenter();
+        saver.activateUserInfo(editText.getText().toString());
 
         intent.putExtra(NAME, name);
         startActivity(intent);
