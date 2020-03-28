@@ -1,7 +1,10 @@
 package com.example.photogallery;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -19,9 +22,17 @@ public class MainActivity extends AppCompatActivity {
 
     /** Called when the user taps the 'Continue' button */
     public void continueToCategoryView(View view) {
+
+
         Intent intent     = new Intent(this, ActivityChooseCategory.class);
         EditText editText = (EditText) findViewById(R.id.editName);
         String name       = editText.getText().toString();
+
+        //Instantiate Presenter and carry out name saving in background.
+        Presenter container = new Presenter();
+        //Only argument is context, which must only be specified in UI thread
+        Presenter.ActivateCategoryActivity saver = container.new ActivateCategoryActivity(this);
+        saver.doInBackground(name);
 
         intent.putExtra(NAME, name);
         startActivity(intent);
