@@ -17,7 +17,7 @@ class Presenter {
     private static final String KEY = "username";
 
     /*Save the username to internal storage*/
-    public void activateUserInfo(final String name){
+    public void activateUserInfo(final String name, final Context context){
 
         Thread save = new Thread(new Runnable()
         {
@@ -37,27 +37,6 @@ class Presenter {
 
     }
 
-    public void activateCategoryActivity(){
-        ImageView lions = (ImageView) findViewById(R.id.categoryView01);
-        ImageView tigers = (ImageView) findViewById(R.id.categoryView02);
-        ImageView bears = (ImageView) findViewById(R.id.categoryView03);
-        ImageView jackalopes = (ImageView) findViewById(R.id.categoryView04);
-
-
-
-        if(view == lions) {
-            photos.doInBackground("Lions");
-        }
-        else if(view == bears) {
-            photos.doInBackground("Bears");
-        }
-        else if(view == tigers) {
-            photos.doInBackground("Tigers");
-        }
-        else if(view == jackalopes) {
-            photos.doInBackground("Jackalopes");
-        }
-    }
 
 }
 

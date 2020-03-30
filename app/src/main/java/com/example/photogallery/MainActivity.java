@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Instantiate Presenter and carry out name saving.
         Presenter saver = new Presenter();
-        saver.activateUserInfo(editText.getText().toString());
+        saver.activateUserInfo(editText.getText().toString(), this);
 
         intent.putExtra(NAME, name);
         startActivity(intent);
