@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import static android.app.PendingIntent.getActivity;
 
 
-class Presenter {
+class Presenter extends Thread{
     private Context context;
     private static final String KEY = "username";
 
