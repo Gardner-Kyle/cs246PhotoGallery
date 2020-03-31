@@ -11,12 +11,15 @@
         android:layout_width="180dp"
         android:layout_height="144dp"
         android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
         android:onClick="viewCategory"
+        app:layout_constraintEnd_toStartOf="@+id/categoryView04"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:srcCompat="@drawable/bear_01"
-        android:layout_marginLeft="16dp" />
+        app:srcCompat="@drawable/bear_01" />
 
     <TextView
         android:id="@+id/textView7"
@@ -48,13 +51,16 @@
         android:id="@+id/categoryView04"
         android:layout_width="180dp"
         android:layout_height="144dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:onClick="viewCategory"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/categoryView03"
         app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:srcCompat="@drawable/jackalope_01"
-        android:layout_marginRight="16dp" />
+        app:srcCompat="@drawable/jackalope_01" />
 
     <TextView
         android:id="@+id/textHeadingChooseCategory"
@@ -87,17 +93,19 @@
 
     <ImageButton
         android:id="@+id/categoryView02"
-        android:layout_width="180dp"
+        android:layout_width="0dp"
         android:layout_height="144dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:onClick="viewCategory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/categoryView01"
         app:layout_constraintTop_toBottomOf="@+id/textHeadingChooseCategory"
-        app:srcCompat="@drawable/tiger_01"
-        android:layout_marginRight="16dp" />
+        app:srcCompat="@drawable/tiger_01" />
 
     <ImageButton
         android:id="@+id/categoryView01"

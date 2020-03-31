@@ -2,19 +2,12 @@ package com.example.photogallery;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
-import java.io.InputStream;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
+import com.squareup.picasso.Picasso;
 
 public class ActivityChooseCategory extends AppCompatActivity {
 
@@ -30,12 +23,13 @@ public class ActivityChooseCategory extends AppCompatActivity {
     public void returnHome(View view) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
+
         startActivity(intent);
     }
 
     /** Called when the user taps one of the 'Photo' button */
     public void viewCategory(View view) {
-        ArrayList<Photo> photoCategory = new ArrayList<>();
+        Presenter presenter = new Presenter();
 
         Intent intent = new Intent(getApplicationContext(), ActivityDisplayCategory.class);
 
@@ -44,7 +38,45 @@ public class ActivityChooseCategory extends AppCompatActivity {
         ImageButton bears = (ImageButton) findViewById(R.id.categoryView03);
         ImageButton jackalopes = (ImageButton) findViewById(R.id.categoryView04);
 
+        if(view == lions){
+            presenter.activateCategoryActivity("Lions");
+        }
+        if(view == tigers){
+            presenter.activateCategoryActivity("Tigers");
+        }
+        if(view == bears){
+            presenter.activateCategoryActivity("Bears");
+        }
+        if(view == jackalopes){
+            presenter.activateCategoryActivity("Jackalopes");
+        }
+
+        ChangeImagesrc src =new ChangeImagesrc();
+        src.doInBackground();
+
         startActivity(intent);
+    }
+
+    class ChangeImagesrc extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            //Images within a category
+            ImageButton img1 = (ImageButton) findViewById(R.id.imageView01);
+            ImageButton img2 = (ImageButton) findViewById(R.id.imageView02);
+            ImageButton img3 = (ImageButton) findViewById(R.id.imageView03);
+            ImageButton img4 = (ImageButton) findViewById(R.id.imageView04);
+
+            String[] path = photos.getImagesFromModel();
+
+            Picasso.with(getApplicationContext()).load(path[0]).into(img1);
+            Picasso.with(getApplicationContext()).load(path[1]).into(img2);
+            Picasso.with(getApplicationContext()).load(path[2]).into(img3);
+            Picasso.with(getApplicationContext()).load(path[3]).into(img4);
+
+            return null;
+        }
     }
 }
 

@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 
 public class Model extends Thread {
 
-    static ArrayList<Photo> photoArray;
+    public static ArrayList<Photo> photoArray;
     private static String category;
 
     public void getPhotoArray(String category) {
@@ -23,7 +23,7 @@ public class Model extends Thread {
         model.start();
     }
 
-    private static void setPhotoArray(ArrayList<Photo> imageArray) {
+    private void setPhotoArray(ArrayList<Photo> imageArray) {
         Model.photoArray = imageArray;
     }
 

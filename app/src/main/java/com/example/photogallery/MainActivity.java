@@ -2,15 +2,10 @@ package com.example.photogallery;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-
-import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
