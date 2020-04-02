@@ -42,16 +42,14 @@ public class Model extends Thread {
             JsonObject object = element.getAsJsonObject();
             JsonArray array = object.get("hits").getAsJsonArray();
 
-            ArrayList<Photo> imageArray = new ArrayList<Photo>();
-            int b=0;
+            ArrayList<Photo> imageArray = new ArrayList<>();
             for (JsonElement imageElement : array) {
                 JsonObject imageObject = imageElement.getAsJsonObject();
                 String imageUrl = imageObject.get("previewURL").getAsString();
                 String imageCategory = Model.category;
                 Photo photo = new Photo(imageUrl, imageCategory);
                 imageArray.add(photo);
-                if(b==3){break;}
-                b++;
+
             }
             setPhotoArray(imageArray);
         } catch(IOException e) {
