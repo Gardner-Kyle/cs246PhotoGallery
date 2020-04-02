@@ -2,15 +2,18 @@ package com.example.photogallery;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 import static android.app.PendingIntent.getActivity;
 
 
 class Presenter extends Thread{
     private static final String KEY = "username";
-    private String category = "";
     Model photos = new Model();
-    private String[] img = new String[4];
 
     /*Save the username to internal storage*/
     public void activateUserInfo(final String name, final Context context){
@@ -19,6 +22,8 @@ class Presenter extends Thread{
         {
             @Override
             public void run(){
+
+                Log.d(name, "Name was received as: ");
 
                 //Context will be specified at instantiation : Can only be done in UI thread.
                 String FILE = "userInfo";
@@ -35,41 +40,20 @@ class Presenter extends Thread{
     /*When the user selects a category, activate it in Display Category activity*/
 
     void activateCategoryActivity(String category){
-        this.category = category;
+
+        photos.getPhotoArray(category);
     }
 
-    String[] getImagesFromModel() {
 
-        photos.getPhotoArray(this.category);
+    String[] activateImagesActivity(){
 
-        for(int i=0; i<4;i++){
-            String drawableRes = Model.photoArray.get(i).url;
-            this.img[i] = drawableRes;
-
-        }
-
-        return this.img;
+         ArrayList<Photo> p = photos.photoArray;
+         String[] s = new String[4];
+         for(int i=0; i<4;i++){
+             s[i] = toString().valueOf(p.get(i));
+         }
+         return s;
     }
-
-    /*
-    Bitmap[] activateImagesActivity(){
-
-
-        Bitmap[] bitMappedPhotos = new Bitmap[4];
-        for(int strSrc = 0; strSrc<4 ; strSrc++) {
-            try {
-                byte[] encodeByte = Base64.decode(this.img[strSrc], Base64.DEFAULT);
-                Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-
-                bitMappedPhotos[strSrc] = bitmap;
-            } catch (Exception e) {
-                e.getMessage();
-                return null;
-            }
-        }
-
-        return bitMappedPhotos;
-    }*/
 
 }
 

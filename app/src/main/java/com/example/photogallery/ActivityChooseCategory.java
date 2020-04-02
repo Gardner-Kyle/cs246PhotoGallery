@@ -2,12 +2,17 @@ package com.example.photogallery;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import java.io.InputStream;
 
 public class ActivityChooseCategory extends AppCompatActivity {
 
@@ -17,6 +22,7 @@ public class ActivityChooseCategory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_category);
+
     }
 
     /** Called when the user taps the 'Home' button */
@@ -29,7 +35,23 @@ public class ActivityChooseCategory extends AppCompatActivity {
 
     /** Called when the user taps one of the 'Photo' button */
     public void viewCategory(View view) {
-        Presenter presenter = new Presenter();
+
+        //Images within a category
+        ImageButton img1 = (ImageButton) findViewById(R.id.imageView01);
+        ImageButton img2 = (ImageButton) findViewById(R.id.imageView02);
+        ImageButton img3 = (ImageButton) findViewById(R.id.imageView03);
+        ImageButton img4 = (ImageButton) findViewById(R.id.imageView04);
+
+
+        assert photos != null;
+        String[] urls = photos.activateImagesActivity();
+
+        if (urls != null) {
+
+            new DownloadImageTask(img1).execute(urls[0]);
+
+
+        }
 
         Intent intent = new Intent(getApplicationContext(), ActivityDisplayCategory.class);
 
@@ -38,44 +60,34 @@ public class ActivityChooseCategory extends AppCompatActivity {
         ImageButton bears = (ImageButton) findViewById(R.id.categoryView03);
         ImageButton jackalopes = (ImageButton) findViewById(R.id.categoryView04);
 
-        if(view == lions){
-            presenter.activateCategoryActivity("Lions");
-        }
-        if(view == tigers){
-            presenter.activateCategoryActivity("Tigers");
-        }
-        if(view == bears){
-            presenter.activateCategoryActivity("Bears");
-        }
-        if(view == jackalopes){
-            presenter.activateCategoryActivity("Jackalopes");
-        }
 
-        ChangeImagesrc src =new ChangeImagesrc();
-        src.doInBackground();
+        photos.activateCategoryActivity("tigers");
+
 
         startActivity(intent);
+
     }
 
-    class ChangeImagesrc extends AsyncTask<Void,Void,Void>{
+    private static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
 
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            //Images within a category
-            ImageButton img1 = (ImageButton) findViewById(R.id.imageView01);
-            ImageButton img2 = (ImageButton) findViewById(R.id.imageView02);
-            ImageButton img3 = (ImageButton) findViewById(R.id.imageView03);
-            ImageButton img4 = (ImageButton) findViewById(R.id.imageView04);
-
-            String[] path = photos.getImagesFromModel();
-
-            Picasso.with(getApplicationContext()).load(path[0]).into(img1);
-            Picasso.with(getApplicationContext()).load(path[1]).into(img2);
-            Picasso.with(getApplicationContext()).load(path[2]).into(img3);
-            Picasso.with(getApplicationContext()).load(path[3]).into(img4);
-
-            return null;
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap bmp = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                bmp = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return bmp;
+        }
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
         }
     }
 }
